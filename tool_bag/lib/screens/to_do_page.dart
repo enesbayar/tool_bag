@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:tool_bag/models/to_do.dart';
 import 'package:tool_bag/services/dbHelper.dart';
 import 'package:tool_bag/widgets/classic_text.dart';
@@ -17,7 +16,6 @@ class _ToDoPageState extends State<ToDoPage> {
   @override
   void initState() {
     super.initState();
-    //dbHelper.deleteDatabase();
     getToDoList();
   }
 
@@ -53,6 +51,7 @@ class _ToDoPageState extends State<ToDoPage> {
                   elevation: 2.0,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Checkbox(
                         value: toDoList[index].isDone,
@@ -64,15 +63,17 @@ class _ToDoPageState extends State<ToDoPage> {
                         },
                       ),
                       Flexible(
-                        child: ClassicText(
-                          text: toDoList[index].description,
-                          fontSize: 18,
-                          textDecoration: toDoList[index].isDone == true
-                              ? TextDecoration.lineThrough
-                              : null,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: ClassicText(
+                            text: toDoList[index].description,
+                            fontSize: 18,
+                            textDecoration: toDoList[index].isDone == true
+                                ? TextDecoration.lineThrough
+                                : null,
+                          ),
                         ),
                       ),
-                      Spacer(),
                       IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () => deleteItem(toDoList[index]))

@@ -53,11 +53,11 @@ class DbHelper {
         db.update("todo", todo.toMap(), where: "id=?", whereArgs: [todo.id]);
     return result;
   }
-
+/*
   Future<void> deleteDatabase() async {
     Database db = await this.db;
     db.delete("todo");
   }
-    
+*/    
 
 }

@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:tool_bag/screens/search_page.dart';
 import 'package:tool_bag/screens/to_do_page.dart';
 import 'package:tool_bag/widgets/classic_text.dart';
-import 'package:tool_bag/widgets/custom_button.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +52,9 @@ class _HomePageState extends State<HomePage> {
                 left: 15,
                 child: FloatingActionButton(
                   heroTag: UniqueKey(),
-                  onPressed: changeBrightness,
-                  child: Icon(Icons.settings),
-                  tooltip: "Settings",
+                  onPressed: search,
+                  child: Icon(Icons.search),
+                  tooltip: "Search",
                 ),
               ),
               Positioned(
@@ -80,6 +79,51 @@ class _HomePageState extends State<HomePage> {
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
+  }
+
+  Future<void> search() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          content: TextField(
+            controller: textEditingController,
+            cursorColor: Colors.red,
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue)),
+              hintText: "Please enter what you want to search",
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: ClassicText(text: "Close", fontSize: 14.0),
+              onPressed: () {
+                textEditingController.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: ClassicText(
+                text: "Search",
+                fontSize: 14.0,
+              ),
+              onPressed: () {
+                debugPrint("text" + textEditingController.text);
+                String url = textEditingController.text;
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> SearchPage(url)));
+                textEditingController.clear();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 }
