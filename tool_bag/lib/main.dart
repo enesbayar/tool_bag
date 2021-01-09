@@ -7,18 +7,17 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return DynamicTheme(
       defaultBrightness: Brightness.light,
       data: (brightness) => new ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: Colors.teal,
         brightness: brightness,
       ),
       themedWidgetBuilder: (context, theme) {
         return MaterialApp(
-          title: 'Tool Bag',
+          debugShowCheckedModeBanner: false,
           theme: theme,
           home: HomePage(),
         );

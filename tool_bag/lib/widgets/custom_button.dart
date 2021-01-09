@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:tool_bag/widgets/classic_text.dart';
 
 class CustomButton extends StatelessWidget {
@@ -11,8 +12,8 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton(
       {Key key,
-      this.width,
-      this.height,
+      this.width : 180,
+      this.height : 60,
       @required this.onPressed,
       this.text : "",
       this.fontSize,

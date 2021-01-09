@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tool_bag/models/to_do.dart';
-import 'package:tool_bag/services/dbHelper.dart';
+import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
+import 'package:tool_bag/services/dbHelper_todo.dart';
 import 'package:tool_bag/widgets/classic_text.dart';
 
 class ToDoPage extends StatefulWidget {
@@ -9,7 +10,7 @@ class ToDoPage extends StatefulWidget {
 }
 
 class _ToDoPageState extends State<ToDoPage> {
-  var dbHelper = DbHelper();
+  var dbHelper = DbHelperForTODO();
   List<ToDo> toDoList;
   int toDoCount = 0;
   TextEditingController textEditingController = TextEditingController();
@@ -24,7 +25,7 @@ class _ToDoPageState extends State<ToDoPage> {
     return Scaffold(
       appBar: AppBar(
         title: ClassicText(
-          text: "To Do List",
+          text: PagesWidgetModel.toDoList,
           fontSize: 18,
         ),
       ),
@@ -40,7 +41,7 @@ class _ToDoPageState extends State<ToDoPage> {
     return toDoCount == 0
         ? Center(
             child: ClassicText(
-            text: "Empty List",
+            text: PagesWidgetModel.emptyList,
             fontSize: 18,
             fontWeight: FontWeight.w800,
           ))
@@ -127,12 +128,12 @@ class _ToDoPageState extends State<ToDoPage> {
                   borderSide: BorderSide(color: Colors.blue)),
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue)),
-              hintText: "Please write the description",
+              hintText: PagesWidgetModel.description,
             ),
           ),
           actions: <Widget>[
             FlatButton(
-              child: ClassicText(text: "Close", fontSize: 14.0),
+              child: ClassicText(text: PagesWidgetModel.close, fontSize: 14.0),
               onPressed: () {
                 textEditingController.clear();
                 Navigator.of(context).pop();
@@ -140,7 +141,7 @@ class _ToDoPageState extends State<ToDoPage> {
             ),
             FlatButton(
               child: ClassicText(
-                text: "Save",
+                text: PagesWidgetModel.save,
                 fontSize: 14.0,
               ),
               onPressed: () async {

@@ -1,15 +1,14 @@
-
-
 import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
 import 'package:tool_bag/widgets/classic_text.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SearchPage extends StatefulWidget {
   final String url;
-  
+
   SearchPage(this.url);
 
   @override
@@ -28,18 +27,23 @@ class SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("widget Url" + widget.url);
     return WillPopScope(
-      onWillPop: ()=>_handleBackButton(context),
-          child: Scaffold(
-        appBar: AppBar(title: ClassicText(text: widget.url, fontSize: 18, fontWeight: FontWeight.w600,),),
-            body: WebView(
-          initialUrl: "https://www.google.com/search?q=" + widget.url,
+      onWillPop: () => _handleBackButton(context),
+      child: Scaffold(
+        appBar: AppBar(
+          title: ClassicText(
+            text: widget.url,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        body: WebView(
+          initialUrl: PagesWidgetModel.googleSearchLink + widget.url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.future.then((value) => _tempController = value);
-                _controller.complete(webViewController);
-              },
+            _controller.complete(webViewController);
+          },
         ),
       ),
     );

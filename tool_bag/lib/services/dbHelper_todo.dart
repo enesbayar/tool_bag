@@ -1,11 +1,9 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tool_bag/models/to_do.dart';
 
-class DbHelper {
+class DbHelperForTODO {
   Database _db;
 
   Future<Database> get db async {
@@ -53,11 +51,4 @@ class DbHelper {
         db.update("todo", todo.toMap(), where: "id=?", whereArgs: [todo.id]);
     return result;
   }
-/*
-  Future<void> deleteDatabase() async {
-    Database db = await this.db;
-    db.delete("todo");
-  }
-*/    
-
 }
