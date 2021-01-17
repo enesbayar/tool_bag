@@ -172,7 +172,7 @@ class _HesCodePageState extends State<HesCodePage> {
   }
 
   void getHesCodeList() {
-    var hesCodeListFuture = dbHelper.getToDoList();
+    var hesCodeListFuture = dbHelper.getHesCodeList();
     hesCodeListFuture.then((data) {
       setState(() {
         this.hesCodeList = data;
@@ -187,6 +187,8 @@ class _HesCodePageState extends State<HesCodePage> {
         name: nameController.text,
         validityDate: DateFormat.yMMMd().format(selectedDate));
     var result = await dbHelper.insert(_hesCode);
+    hesCodeController.clear();
+    nameController.clear();
     if (result != null) {
       getHesCodeList();
     } else {

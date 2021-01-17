@@ -25,7 +25,7 @@ class DbHelperForHesCode{
         "Create table tblHesCode(id integer primary key, hesCode text, name text, validityDate text)");
   }
 
-  Future<List<HesCode>> getToDoList() async {
+  Future<List<HesCode>> getHesCodeList() async {
     Database db = await this.db;
     var result = await db.query("tblHesCode");
     return List.generate(result.length, (i) {
