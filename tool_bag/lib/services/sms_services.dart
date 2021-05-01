@@ -1,13 +1,10 @@
 import 'package:sms/sms.dart';
 
-abstract class SmsServices{
-  SmsQuery smsQuery();
-  Future<List<SmsMessage>> getMessages(SmsQuery query);
-}
+import 'isms_services.dart';
 
-class SmsService extends SmsServices{
+class SMService extends ISMSServices {
   @override
-  Future<List<SmsMessage>> getMessages(SmsQuery query) async{
+  Future<List<SmsMessage>> getMessages(SmsQuery query) async {
     List<SmsMessage> messages = await query.getAllSms;
     return messages;
   }
@@ -17,6 +14,6 @@ class SmsService extends SmsServices{
     SmsQuery query = SmsQuery();
     return query;
   }
-
 }
-final SmsService smsService = SmsService();
+
+final SMService smsService = SMService();

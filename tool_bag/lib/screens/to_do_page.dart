@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tool_bag/models/to_do.dart';
-import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
-import 'package:tool_bag/services/dbHelper_todo.dart';
-import 'package:tool_bag/widgets/classic_text.dart';
+
+import '../models/to_do.dart';
+import '../models/widget_model/pages_widget_model.dart';
+import '../services/db_helper_todo.dart';
+import '../widgets/classic_text.dart';
 
 class ToDoPage extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _ToDoPageState extends State<ToDoPage> {
     return Scaffold(
       appBar: AppBar(
         title: ClassicText(
-          text: PagesWidgetModel.toDoList,
+          text: PagesWidgetModel().toDoList,
           fontSize: 18,
         ),
       ),
@@ -41,7 +42,7 @@ class _ToDoPageState extends State<ToDoPage> {
     return toDoCount == 0
         ? Center(
             child: ClassicText(
-            text: PagesWidgetModel.emptyList,
+            text: PagesWidgetModel().emptyList,
             fontSize: 18,
             fontWeight: FontWeight.w800,
           ))
@@ -84,7 +85,7 @@ class _ToDoPageState extends State<ToDoPage> {
   }
 
   void getToDoList() async {
-    var toDoListFuture = dbHelper.getToDoList();
+    var toDoListFuture = dbHelper.getList();
     toDoListFuture.then((data) {
       setState(() {
         this.toDoList = data;
@@ -128,20 +129,20 @@ class _ToDoPageState extends State<ToDoPage> {
                   borderSide: BorderSide(color: Colors.blue)),
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue)),
-              hintText: PagesWidgetModel.description,
+              hintText: PagesWidgetModel().description,
             ),
           ),
           actions: <Widget>[
-            FlatButton(
-              child: ClassicText(text: PagesWidgetModel.close, fontSize: 14.0),
+            TextButton(
+              child: ClassicText(text: PagesWidgetModel().close, fontSize: 14.0),
               onPressed: () {
                 textEditingController.clear();
                 Navigator.of(context).pop();
               },
             ),
-            FlatButton(
+            TextButton(
               child: ClassicText(
-                text: PagesWidgetModel.save,
+                text: PagesWidgetModel().save,
                 fontSize: 14.0,
               ),
               onPressed: () async {

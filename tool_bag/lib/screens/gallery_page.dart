@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
-import 'package:tool_bag/screens/gallery_detail_page.dart';
-import 'package:tool_bag/widgets/classic_text.dart';
+
+import '../models/widget_model/pages_widget_model.dart';
+import '../widgets/classic_text.dart';
+import 'gallery_detail_page.dart';
 
 class GalleryPage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _GalleryPageState extends State<GalleryPage> {
     return Scaffold(
       appBar: AppBar(
         title: ClassicText(
-          text: PagesWidgetModel.gallery,
+          text: PagesWidgetModel().gallery,
           fontSize: 18,
         ),
       ),

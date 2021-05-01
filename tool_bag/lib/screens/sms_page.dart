@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sms/sms.dart';
-import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
-import 'package:tool_bag/services/sms_services.dart';
-import 'package:tool_bag/widgets/classic_text.dart';
+
+import '../models/widget_model/pages_widget_model.dart';
+import '../services/sms_services.dart';
+import '../widgets/classic_text.dart';
 
 class SmsPage extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _SmsPageState extends State<SmsPage> {
     return Scaffold(
       appBar: AppBar(
         title: ClassicText(
-          text: PagesWidgetModel.sms,
+          text: PagesWidgetModel().sms,
           fontSize: 18,
         ),
       ),

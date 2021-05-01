@@ -11,12 +11,16 @@ class GalleryDetailPage extends StatelessWidget {
       appBar: AppBar(),
       body: Hero(
         tag: image,
-        child: Center(
-          child: Image.memory(
-            image,
-            fit: BoxFit.cover,
-          ),
-        ),
+        child: buildImage(),
+      ),
+    );
+  }
+
+  Widget buildImage() {
+    return Center(
+      child: Image.memory(
+        image,
+        fit: BoxFit.cover,
       ),
     );
   }

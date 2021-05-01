@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:tool_bag/widgets/classic_text.dart';
+
+import 'classic_text.dart';
 
 class CustomButton extends StatelessWidget {
   final double width;
@@ -25,7 +26,7 @@ class CustomButton extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: onPressed,
         child: ClassicText(
           text: text,

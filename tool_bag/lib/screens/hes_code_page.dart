@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tool_bag/models/hes_code.dart';
-import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
-import 'package:tool_bag/services/dbHelper_hes_code.dart';
-import 'package:tool_bag/widgets/classic_text.dart';
-import 'package:tool_bag/widgets/custom_button.dart';
+
+import '../models/hes_code.dart';
+import '../models/widget_model/pages_widget_model.dart';
+import '../services/db_helper_hes_code.dart';
+import '../widgets/classic_text.dart';
+import '../widgets/custom_button.dart';
 
 class HesCodePage extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class _HesCodePageState extends State<HesCodePage> {
   TextEditingController nameController = TextEditingController();
   DateTime selectedDate = DateTime.now();
 
+  bool isSelectDateOpen = false;
+
   @override
   void initState() {
     getHesCodeList();
@@ -31,7 +34,7 @@ class _HesCodePageState extends State<HesCodePage> {
     return Scaffold(
       appBar: AppBar(
           title: ClassicText(
-        text: PagesWidgetModel.hesCode,
+        text: PagesWidgetModel().hesCode,
         fontSize: 18,
       )),
       body: SingleChildScrollView(child: buildHesCodePage()),
@@ -54,14 +57,14 @@ class _HesCodePageState extends State<HesCodePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     controller: hesCodeController,
-                    decoration: InputDecoration(labelText: PagesWidgetModel.hesCode),
+                    decoration: InputDecoration(labelText: PagesWidgetModel().hesCode),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     controller: nameController,
-                    decoration: InputDecoration(labelText: PagesWidgetModel.name),
+                    decoration: InputDecoration(labelText: PagesWidgetModel().name),
                   ),
                 ),
                 Padding(
@@ -70,7 +73,7 @@ class _HesCodePageState extends State<HesCodePage> {
                     onPressed: () {
                       _selectDate(context);
                     },
-                    text: PagesWidgetModel.validityDate,
+                    text: PagesWidgetModel().validityDate,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     height: 40,
@@ -83,7 +86,7 @@ class _HesCodePageState extends State<HesCodePage> {
         ),
         SizedBox(height: 25),
         CustomButton(
-          text: PagesWidgetModel.save.toUpperCase(),
+          text: PagesWidgetModel().save.toUpperCase(),
           fontWeight: FontWeight.bold,
           fontSize: 24,
           width: 300,
@@ -97,7 +100,7 @@ class _HesCodePageState extends State<HesCodePage> {
         ),
         SizedBox(height: 60),
         ClassicText(
-          text: PagesWidgetModel.hesCodeList,
+          text: PagesWidgetModel().hesCodeList,
           fontSize: 24,
           fontWeight: FontWeight.w600,
         ),
@@ -115,7 +118,7 @@ class _HesCodePageState extends State<HesCodePage> {
               child: hesCodeCount == 0
                   ? Center(
                     child: ClassicText(
-                        text: PagesWidgetModel.empty,
+                        text: PagesWidgetModel().empty,
                         fontSize: 18,
                       ),
                   )
@@ -147,19 +150,19 @@ class _HesCodePageState extends State<HesCodePage> {
             Row(
               children: [
                 Icon(Icons.healing),
-                Text(hesCode.hesCode),
+                ClassicText(text:hesCode.hesCode ?? ""),
               ],
             ),
             Row(
               children: [
                 Icon(Icons.person),
-                Text(hesCode.name),
+                ClassicText(text:hesCode.name ?? ""),
               ],
             ),
             Row(
               children: [
                 Icon(Icons.date_range),
-                Text(hesCode.validityDate),
+                ClassicText(text:hesCode.validityDate ?? ""),
               ],
             ),
             Divider(
@@ -172,7 +175,7 @@ class _HesCodePageState extends State<HesCodePage> {
   }
 
   void getHesCodeList() {
-    var hesCodeListFuture = dbHelper.getHesCodeList();
+    var hesCodeListFuture = dbHelper.getList();
     hesCodeListFuture.then((data) {
       setState(() {
         this.hesCodeList = data;
@@ -182,6 +185,9 @@ class _HesCodePageState extends State<HesCodePage> {
   }
 
   void addHesCode() async {
+    if (!isSelectDateOpen){
+      selectedDate = DateTime.now().add(Duration(days: 365));
+    }
     HesCode _hesCode = HesCode(
         hesCode: hesCodeController.text,
         name: nameController.text,
@@ -189,7 +195,9 @@ class _HesCodePageState extends State<HesCodePage> {
     var result = await dbHelper.insert(_hesCode);
     hesCodeController.clear();
     nameController.clear();
+    FocusScope.of(context).unfocus();
     if (result != null) {
+      isSelectDateOpen = false;
       getHesCodeList();
     } else {
       throw Exception("db exception");
@@ -212,9 +220,11 @@ class _HesCodePageState extends State<HesCodePage> {
       firstDate: DateTime(2000),
       lastDate: DateTime(2028),
     );
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != selectedDate){
+      isSelectDateOpen = true;
       setState(() {
         selectedDate = picked;
       });
+    }
   }
 }

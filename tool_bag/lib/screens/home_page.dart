@@ -1,13 +1,14 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
-import 'package:tool_bag/screens/gallery_page.dart';
-import 'package:tool_bag/screens/hes_code_page.dart';
-import 'package:tool_bag/screens/search_page.dart';
-import 'package:tool_bag/screens/sms_page.dart';
-import 'package:tool_bag/screens/to_do_page.dart';
-import 'package:tool_bag/widgets/classic_text.dart';
-import 'package:tool_bag/widgets/custom_button.dart';
+
+import '../models/widget_model/pages_widget_model.dart';
+import '../services/custom_dynamic_theme.dart';
+import '../widgets/classic_text.dart';
+import '../widgets/custom_button.dart';
+import 'gallery_page.dart';
+import 'hes_code_page.dart';
+import 'search_page.dart';
+import 'sms_page.dart';
+import 'to_do_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: ClassicText(
-            text: PagesWidgetModel.homePageAppBar,
+            text: PagesWidgetModel().homePageAppBar,
             fontSize: 18,
           ),
         ),
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             heroTag: UniqueKey(),
             onPressed: changeBrightness,
             child: Icon(Icons.brightness_4),
-            tooltip: PagesWidgetModel.changeTheme,
+            tooltip: PagesWidgetModel().changeTheme,
           ),
         ),
         Center(
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                   heroTag: UniqueKey(),
                   onPressed: search,
                   child: Icon(Icons.search),
-                  tooltip: PagesWidgetModel.searchOnGoogle,
+                  tooltip: PagesWidgetModel().searchOnGoogle,
                 ),
               ),
               Positioned(
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HesCodePage())),
                   child: Icon(Icons.healing),
-                  tooltip: PagesWidgetModel.hesCode,
+                  tooltip: PagesWidgetModel().hesCode,
                 ),
               ),
               Positioned(
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ToDoPage())),
                   child: Icon(Icons.check),
-                  tooltip: PagesWidgetModel.toDoList,
+                  tooltip: PagesWidgetModel().toDoList,
                 ),
               ),
               Positioned(
@@ -104,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => GalleryPage())),
                   child: Icon(Icons.photo_album),
-                  tooltip: PagesWidgetModel.gallery,
+                  tooltip: PagesWidgetModel().gallery,
                 ),
               ),
               Positioned(
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SmsPage())),
                   child: Icon(Icons.sms),
-                  tooltip: PagesWidgetModel.sms,
+                  tooltip: PagesWidgetModel().sms,
                 ),
               ),
             ],
@@ -132,7 +133,7 @@ class _HomePageState extends State<HomePage> {
               });
             },
             child: Icon(Icons.restore_page),
-            tooltip: PagesWidgetModel.changeUI,
+            tooltip: PagesWidgetModel().changeUI,
           ),
         ),
       ],
@@ -161,11 +162,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 CustomButton(
                   onPressed: changeBrightness,
-                  text: PagesWidgetModel.changeTheme,
+                  text: PagesWidgetModel().changeTheme,
                 ),
                 CustomButton(
                   onPressed: search,
-                  text: PagesWidgetModel.searchOnGoogle,
+                  text: PagesWidgetModel().searchOnGoogle,
                 ),
               ],
             ),
@@ -176,12 +177,12 @@ class _HomePageState extends State<HomePage> {
                 CustomButton(
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ToDoPage())),
-                  text: PagesWidgetModel.toDoList,
+                  text: PagesWidgetModel().toDoList,
                 ),
                 CustomButton(
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => GalleryPage())),
-                  text: PagesWidgetModel.gallery,
+                  text: PagesWidgetModel().gallery,
                 ),
               ],
             ),
@@ -192,12 +193,12 @@ class _HomePageState extends State<HomePage> {
                 CustomButton(
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SmsPage())),
-                  text: PagesWidgetModel.sms,
+                  text: PagesWidgetModel().sms,
                 ),
                 CustomButton(
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HesCodePage())),
-                  text: PagesWidgetModel.hesCode,
+                  text: PagesWidgetModel().hesCode,
                 ),
               ],
             ),
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                     defaultUI = true;
                   });
                 },
-                text: PagesWidgetModel.changeUI),
+                text: PagesWidgetModel().changeUI),
           ],
         ),
       ],
@@ -216,7 +217,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void changeBrightness() {
-    DynamicTheme.of(context).setBrightness(
+    CustomDynamicTheme.of(context).setBrightness(
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
@@ -238,20 +239,20 @@ class _HomePageState extends State<HomePage> {
                   borderSide: BorderSide(color: Colors.blue)),
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue)),
-              hintText: PagesWidgetModel.alertSearch,
+              hintText: PagesWidgetModel().alertSearch,
             ),
           ),
           actions: <Widget>[
-            FlatButton(
-              child: ClassicText(text: PagesWidgetModel.close, fontSize: 14.0),
+            TextButton(
+              child: ClassicText(text: PagesWidgetModel().close, fontSize: 14.0),
               onPressed: () {
                 textEditingController.clear();
                 Navigator.of(context).pop();
               },
             ),
-            FlatButton(
+            TextButton(
               child: ClassicText(
-                text: PagesWidgetModel.searchOnGoogle,
+                text: PagesWidgetModel().searchOnGoogle,
                 fontSize: 14.0,
               ),
               onPressed: () {

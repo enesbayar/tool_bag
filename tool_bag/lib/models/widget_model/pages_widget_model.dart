@@ -1,28 +1,34 @@
+class PagesWidgetModel {
+  static PagesWidgetModel _instance;
 
-class PagesWidgetModel{
+  PagesWidgetModel._internal() {
+    _instance = this;
+  }
+
+  factory PagesWidgetModel() => _instance ?? PagesWidgetModel._internal();
   //homePage
-  static const homePageAppBar = "Tool Bag"; 
-  static const changeTheme = "Change Theme";
-  static const searchOnGoogle = "Search on Google";
-  static const hesCode = "HES Code";
-  static const toDoList = "To-Do List";
-  static const gallery = "Gallery";
-  static const sms = "SMS";
-  static const changeUI = "Change UI";
-  static const alertSearch = "Please enter what you want to search";
-  static const close = "Close";
+  final homePageAppBar = "Tool Bag";
+  final changeTheme = "Change Theme";
+  final searchOnGoogle = "Search on Google";
+  final hesCode = "HES Code";
+  final toDoList = "To-Do List";
+  final gallery = "Gallery";
+  final sms = "SMS";
+  final changeUI = "Change UI";
+  final alertSearch = "Please enter what you want to search";
+  final close = "Close";
 
   //hesCodePage
-  static const name = "Name";
-  static const validityDate = "Select Validity Date";
-  static const save = "Save";
-  static const hesCodeList = "Hes Code List";
-  static const empty = "Empty";
-  
+  final name = "Name";
+  final validityDate = "Select Validity Date";
+  final save = "Save";
+  final hesCodeList = "Hes Code List";
+  final empty = "Empty";
+
   //searchPage
-  static const googleSearchLink = "https://www.google.com/search?q=";
+  final googleSearchLink = "https://www.google.com/search?q=";
 
   //To-Do Page
-  static const emptyList = "Empty List";
-  static const description = "Please write the description";
+  final emptyList = "Empty List";
+  final description = "Please write the description";
 }

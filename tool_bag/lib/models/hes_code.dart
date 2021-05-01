@@ -1,13 +1,26 @@
-class HesCode {
+import 'base_model.dart';
+
+class HesCode extends BaseModel {
   int id;
   String hesCode;
   String name;
   String validityDate;
 
-  HesCode({this.hesCode, this.name, this.validityDate});
-  HesCode.withId({this.id, this.hesCode, this.name, this.validityDate});
+  HesCode({this.id, this.hesCode, this.name, this.validityDate});
 
-  Map<String, dynamic> toMap() {
+  factory HesCode.fromJson(Map<String, Object> o) => HesCode(
+      id: o["id"] == null ? null : int.tryParse(o["id"].toString()),
+      hesCode: o["hesCode"] == null ? null : o["hesCode"],
+      name: o["name"] == null ? null : o["name"],
+      validityDate: o["validityDate"] == null ? null : o["validityDate"]);
+
+  @override
+  fromJson(Map<String, Object> json) {
+    HesCode.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
     var map = Map<String, dynamic>();
     map["hesCode"] = hesCode;
     map["name"] = name;
@@ -18,12 +31,5 @@ class HesCode {
     }
 
     return map;
-  }
-
-  HesCode.fromObject(dynamic o) {
-    this.id = int.tryParse(o["id"].toString());
-    this.hesCode = o["hesCode"];
-    this.name = o["name"];
-    this.validityDate = o["validityDate"];
   }
 }

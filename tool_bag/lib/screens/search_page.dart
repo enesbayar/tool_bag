@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tool_bag/models/widget_model/pages_widget_model.dart';
-import 'package:tool_bag/widgets/classic_text.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../models/widget_model/pages_widget_model.dart';
+import '../widgets/classic_text.dart';
 
 class SearchPage extends StatefulWidget {
   final String url;
@@ -38,7 +39,7 @@ class SearchPageState extends State<SearchPage> {
           ),
         ),
         body: WebView(
-          initialUrl: PagesWidgetModel.googleSearchLink + widget.url,
+          initialUrl: PagesWidgetModel().googleSearchLink + widget.url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.future.then((value) => _tempController = value);
