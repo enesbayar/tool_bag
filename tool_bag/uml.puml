@@ -1,0 +1,305 @@
+@startuml ToolBagApp
+set namespaceSeparator ::
+
+abstract class "tool_bag::models::base_model.dart::BaseModel" {
+  +Map<String*, Object*>* toJson()
+  +T* fromJson()
+}
+
+class "tool_bag::models::hes_code.dart::HesCode" {
+  +int* id
+  +String* hesCode
+  +String* name
+  +String* validityDate
+  +dynamic fromJson()
+  +Map<String*, dynamic>* toJson()
+}
+
+"tool_bag::models::base_model.dart::BaseModel" <|-- "tool_bag::models::hes_code.dart::HesCode"
+
+class "tool_bag::models::to_do.dart::ToDo" {
+  +int* id
+  +String* description
+  +bool* isDone
+  +dynamic fromJson()
+  +Map<String*, Object*>* toJson()
+}
+
+"tool_bag::models::base_model.dart::BaseModel" <|-- "tool_bag::models::to_do.dart::ToDo"
+
+class "tool_bag::models::widget_model::pages_widget_model.dart::PagesWidgetModel" {
+  {static} -PagesWidgetModel* _instance
+  +String* homePageAppBar
+  +String* changeTheme
+  +String* searchOnGoogle
+  +String* hesCode
+  +String* toDoList
+  +String* gallery
+  +String* sms
+  +String* changeUI
+  +String* alertSearch
+  +String* close
+  +String* name
+  +String* validityDate
+  +String* save
+  +String* hesCodeList
+  +String* empty
+  +String* googleSearchLink
+  +String* emptyList
+  +String* description
+}
+
+"tool_bag::models::widget_model::pages_widget_model.dart::PagesWidgetModel" o-- "tool_bag::models::widget_model::pages_widget_model.dart::PagesWidgetModel*"
+
+class "tool_bag::screens::gallery_detail_page.dart::GalleryDetailPage" {
+  +Uint8List* image
+  +Widget* build()
+  +Widget* buildImage()
+}
+
+"tool_bag::screens::gallery_detail_page.dart::GalleryDetailPage" o-- "dart::typed_data::Uint8List*"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "tool_bag::screens::gallery_detail_page.dart::GalleryDetailPage"
+
+class "tool_bag::screens::gallery_page.dart::GalleryPage" {
+  +_GalleryPageState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "tool_bag::screens::gallery_page.dart::GalleryPage"
+
+class "tool_bag::screens::gallery_page.dart::_GalleryPageState" {
+  -List<AssetEntity*>* _galleryList
+  +void initState()
+  +Widget* build()
+  +Widget* buildGallery()
+  +void getDataFromGallery()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "tool_bag::screens::gallery_page.dart::_GalleryPageState"
+
+class "tool_bag::screens::hes_code_page.dart::HesCodePage" {
+  +_HesCodePageState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "tool_bag::screens::hes_code_page.dart::HesCodePage"
+
+class "tool_bag::screens::hes_code_page.dart::_HesCodePageState" {
+  +DbHelperForHesCode* dbHelper
+  +List<HesCode*>* hesCodeList
+  +int* hesCodeCount
+  +TextEditingController* hesCodeController
+  +TextEditingController* nameController
+  +DateTime* selectedDate
+  +bool* isSelectDateOpen
+  +void initState()
+  +Widget* build()
+  +Widget* buildHesCodePage()
+  +Widget* buildHesCodeItem()
+  +void getHesCodeList()
+  +void addHesCode()
+  +void deleteHesCode()
+  -dynamic _selectDate()
+}
+
+"tool_bag::screens::hes_code_page.dart::_HesCodePageState" o-- "tool_bag::services::db_helper_hes_code.dart::DbHelperForHesCode*"
+"tool_bag::screens::hes_code_page.dart::_HesCodePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController*"
+"flutter::src::widgets::framework.dart::State" <|-- "tool_bag::screens::hes_code_page.dart::_HesCodePageState"
+
+class "tool_bag::screens::home_page.dart::HomePage" {
+  +_HomePageState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "tool_bag::screens::home_page.dart::HomePage"
+
+class "tool_bag::screens::home_page.dart::_HomePageState" {
+  +TextEditingController* textEditingController
+  +bool* defaultUI
+  +Widget* build()
+  +Widget* buildHomePage()
+  +Widget* buildCustomHomePage()
+  +void changeBrightness()
+  +Future<void>* search()
+}
+
+"tool_bag::screens::home_page.dart::_HomePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController*"
+"flutter::src::widgets::framework.dart::State" <|-- "tool_bag::screens::home_page.dart::_HomePageState"
+
+class "tool_bag::screens::search_page.dart::SearchPage" {
+  +String* url
+  +SearchPageState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "tool_bag::screens::search_page.dart::SearchPage"
+
+class "tool_bag::screens::search_page.dart::SearchPageState" {
+  -WebViewController* _tempController
+  -Completer<WebViewController*>* _controller
+  +void initState()
+  +Widget* build()
+  -Future<bool*>* _handleBackButton()
+}
+
+"tool_bag::screens::search_page.dart::SearchPageState" o-- "webview_flutter::webview_flutter.dart::WebViewController*"
+"tool_bag::screens::search_page.dart::SearchPageState" o-- "dart::async::Completer<WebViewController*>*"
+"flutter::src::widgets::framework.dart::State" <|-- "tool_bag::screens::search_page.dart::SearchPageState"
+
+class "tool_bag::screens::sms_page.dart::SmsPage" {
+  +_SmsPageState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "tool_bag::screens::sms_page.dart::SmsPage"
+
+class "tool_bag::screens::sms_page.dart::_SmsPageState" {
+  +SmsQuery* smsQuery
+  +List<SmsMessage*>* messages
+  +void initState()
+  +Widget* build()
+  +Widget* buildSmsPage()
+  +Widget* buildSmsItem()
+}
+
+"tool_bag::screens::sms_page.dart::_SmsPageState" o-- "sms::sms.dart::SmsQuery*"
+"flutter::src::widgets::framework.dart::State" <|-- "tool_bag::screens::sms_page.dart::_SmsPageState"
+
+class "tool_bag::screens::to_do_page.dart::ToDoPage" {
+  +_ToDoPageState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "tool_bag::screens::to_do_page.dart::ToDoPage"
+
+class "tool_bag::screens::to_do_page.dart::_ToDoPageState" {
+  +DbHelperForTODO* dbHelper
+  +List<ToDo*>* toDoList
+  +int* toDoCount
+  +TextEditingController* textEditingController
+  +void initState()
+  +Widget* build()
+  +Widget* buildToDoPage()
+  +void getToDoList()
+  +void deleteItem()
+  +void addItem()
+  +Future<void>* addToDo()
+}
+
+"tool_bag::screens::to_do_page.dart::_ToDoPageState" o-- "tool_bag::services::db_helper_todo.dart::DbHelperForTODO*"
+"tool_bag::screens::to_do_page.dart::_ToDoPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController*"
+"flutter::src::widgets::framework.dart::State" <|-- "tool_bag::screens::to_do_page.dart::_ToDoPageState"
+
+class "tool_bag::services::custom_dynamic_theme.dart::CustomDynamicTheme" {
+  +Widget* Function(BuildContext*, ThemeData*)* themedWidgetBuilder
+  +ThemeData* Function(Brightness*)* data
+  +Brightness* defaultBrightness
+  +CustomDynamicThemeState* createState()
+  {static} +CustomDynamicThemeState* of()
+}
+
+"tool_bag::services::custom_dynamic_theme.dart::CustomDynamicTheme" o-- "tool_bag::services::custom_dynamic_theme.dart::Widget* Function(BuildContext*, ThemeData*)*"
+"tool_bag::services::custom_dynamic_theme.dart::CustomDynamicTheme" o-- "tool_bag::services::custom_dynamic_theme.dart::ThemeData* Function(Brightness*)*"
+"tool_bag::services::custom_dynamic_theme.dart::CustomDynamicTheme" o-- "dart::ui::Brightness*"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "tool_bag::services::custom_dynamic_theme.dart::CustomDynamicTheme"
+
+class "tool_bag::services::custom_dynamic_theme.dart::CustomDynamicThemeState" {
+  -ThemeData* _data
+  -Brightness* _brightness
+  {static} -String* _sharedPreferencesKey
+  +ThemeData* data
+  +Brightness* brightness
+  +void initState()
+  +void didChangeDependencies()
+  +void didUpdateWidget()
+  +Future<void>* setBrightness()
+  +void setThemeData()
+  +Future<bool*>* loadBrightness()
+  +Widget* build()
+}
+
+"tool_bag::services::custom_dynamic_theme.dart::CustomDynamicThemeState" o-- "flutter::src::material::theme_data.dart::ThemeData*"
+"tool_bag::services::custom_dynamic_theme.dart::CustomDynamicThemeState" o-- "dart::ui::Brightness*"
+"flutter::src::widgets::framework.dart::State" <|-- "tool_bag::services::custom_dynamic_theme.dart::CustomDynamicThemeState"
+
+abstract class "tool_bag::services::db_helper.dart::DbHelper" {
+  +Future<Database*>* db
+  +Future<List<T*>*>* getList()
+  +Future<int*>* insert()
+  +Future<int*>* delete()
+}
+
+class "tool_bag::services::db_helper_hes_code.dart::DbHelperForHesCode" {
+  +String* tableName
+  +Future<List<HesCode*>*>* getList()
+  +Future<int*>* insert()
+  +Future<int*>* delete()
+}
+
+"tool_bag::services::db_helper.dart::DbHelper" <|-- "tool_bag::services::db_helper_hes_code.dart::DbHelperForHesCode"
+
+class "tool_bag::services::db_helper_todo.dart::DbHelperForTODO" {
+  +String* tableName
+  +Future<List<ToDo*>*>* getList()
+  +Future<int*>* insert()
+  +Future<int*>* delete()
+  +Future<int*>* update()
+}
+
+"tool_bag::services::db_helper.dart::DbHelper" <|-- "tool_bag::services::db_helper_todo.dart::DbHelperForTODO"
+
+abstract class "tool_bag::services::isms_services.dart::ISMSServices" {
+  +SmsQuery* smsQuery()
+  +Future<List<SmsMessage*>*>* getMessages()
+}
+
+class "tool_bag::services::provider::database_provider.dart::DatabaseProvider" {
+  {static} +Database* db
+  {static} +Future<Database*>* database
+  {static} +Future<Database*>* initializeDb()
+  {static} +void createDb()
+}
+
+"tool_bag::services::provider::database_provider.dart::DatabaseProvider" o-- "sqflite_common::sqlite_api.dart::Database*"
+
+class "tool_bag::services::sms_services.dart::SMService" {
+  +Future<List<SmsMessage*>*>* getMessages()
+  +SmsQuery* smsQuery()
+}
+
+"tool_bag::services::isms_services.dart::ISMSServices" <|-- "tool_bag::services::sms_services.dart::SMService"
+
+class "tool_bag::tool_bag_app.dart::ToolBagApp" {
+  +Brightness* selectedBrightness
+  +Widget* build()
+  +ThemeData* buildThemeData()
+  +MaterialApp* buildMaterialApp()
+}
+
+"tool_bag::tool_bag_app.dart::ToolBagApp" o-- "dart::ui::Brightness*"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "tool_bag::tool_bag_app.dart::ToolBagApp"
+
+class "tool_bag::widgets::classic_text.dart::ClassicText" {
+  +String* text
+  +Color* color
+  +double* fontSize
+  +TextDecoration* textDecoration
+  +double* letterSpacing
+  +FontWeight* fontWeight
+  +Widget* build()
+}
+
+"tool_bag::widgets::classic_text.dart::ClassicText" o-- "dart::ui::Color*"
+"tool_bag::widgets::classic_text.dart::ClassicText" o-- "dart::ui::TextDecoration*"
+"tool_bag::widgets::classic_text.dart::ClassicText" o-- "dart::ui::FontWeight*"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "tool_bag::widgets::classic_text.dart::ClassicText"
+
+class "tool_bag::widgets::custom_button.dart::CustomButton" {
+  +double* width
+  +double* height
+  +Function* onPressed
+  +String* text
+  +double* fontSize
+  +FontWeight* fontWeight
+  +Widget* build()
+}
+
+"tool_bag::widgets::custom_button.dart::CustomButton" o-- "dart::ui::FontWeight*"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "tool_bag::widgets::custom_button.dart::CustomButton"
+
+
+@enduml
