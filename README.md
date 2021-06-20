@@ -33,6 +33,6 @@
 
   ![](https://i.hizliresim.com/8k5qnoi.jpg)
   
- - Hes Code
+- Hes Code
 
   ![](https://im7.ezgif.com/tmp/ezgif-7-2bfda48c211f.gif)
