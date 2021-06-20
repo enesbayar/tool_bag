@@ -15,19 +15,19 @@
 ### Images of the application:
 - Switchable user interface and Switchable (dark/light) theme
 
-  ![](https://im7.ezgif.com/tmp/ezgif-7-8e91b00abed6.gif)
+  ![](https://i.hizliresim.com/hvrgf7h.gif)
   
 - Search on Google
 
-  ![](https://im7.ezgif.com/tmp/ezgif-7-56d80a2fdc8a.gif)
+  ![](https://i.hizliresim.com/to0m4wj.gif)
   
 - To-Do List
 
-  ![](https://im7.ezgif.com/tmp/ezgif-7-ce8adeca9e51.gif)
+  ![](https://i.hizliresim.com/il3fwfy.gif)
   
 - Gallery Viewing
 
-  ![](https://im7.ezgif.com/tmp/ezgif-7-b7b4af4dbbfb.gif)
+  ![](https://i.hizliresim.com/ifmb318.gif)
   
 - SMS Viewing
 
@@ -35,4 +35,4 @@
   
 - Hes Code
 
-  ![](https://im7.ezgif.com/tmp/ezgif-7-2bfda48c211f.gif)
+  ![](https://i.hizliresim.com/35tgom4.gif)
